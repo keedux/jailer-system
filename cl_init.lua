@@ -58,11 +58,10 @@ net.Receive("jailerpanel_open", function()
             me:Center()
         end
     end
-
     Frame.Paint = function(self, w, h)
         draw.RoundedBox( 0, 0, 0, w, h, Color( 123, 0, 0, 255 ) )
         draw.RoundedBox(0, 0, 0, sizeW, 30, Color( 32, 32, 32, 255 ))
-       
+    --NumSlide--   
     end
     local DermaNumSlider = vgui.Create( "DNumSlider", Frame )
     DermaNumSlider:SetPos( 80, 20 )				-- Set the position
@@ -70,20 +69,48 @@ net.Receive("jailerpanel_open", function()
     DermaNumSlider:SetText( "" )	-- Set the text above the slider
     DermaNumSlider:SetMin(0)				 	-- Set the minimum number you can slide to
     DermaNumSlider:SetMax(30)				-- Set the maximum number you can slide to
-    DermaNumSlider:SetDecimals( 0 )	
-    			-- Decimal places - zero for whole number
+    DermaNumSlider:SetDecimals( 0 )	-- Decimal places - zero for whole number
+    --Arrest Time Label--
     local DLabel = vgui.Create("DLabel", Frame)
     DLabel:SetSize(200,30)
     DLabel:SetPos(20,55)
     DLabel:SetText("Arrest Time (Minutes):")  
     DLabel:SetFontInternal("HudHintTextLarge")  
+    --Reason ComboBox--
+    local DComboBox = vgui.Create( "DComboBox", Frame )
+    DComboBox:SetPos( 0, 100 )
+    DComboBox:SetSize( sizeW, 50 )
+    DComboBox:SetValue( "Arrest Reason" ) 
+    DComboBox:SetFontInternal("HudHintTextLarge")  
+    DComboBox:SetTextColor( Color(255,255,255) )
+    DComboBox:AddChoice( "Equipment Abuse" )
+    DComboBox:AddChoice( "Rape" )
+    DComboBox:AddChoice( "Incest >.<" )
+    DComboBox:AddChoice( "Other", -1 )
+    DComboBox.Paint = function(self, w, h)
+        draw.RoundedBox( 0, 0, 0, w, h, Color( 32, 32, 32, 255 ) )
+    end
+    function DComboBox:OnSelect(index, value, data)
 
+        if(data == -1) then	
+            DComboBox:Hide()
+            
+	    local TextEntry = vgui.Create( "DTextEntry", Frame ) -- create the form as a child of frame
+	    TextEntry:SetPos( 0, 100 )
+        TextEntry:SetSize( sizeW, 50 )
+	    TextEntry.OnEnter = function( self )
+		    chat.AddText( self:GetValue() )	-- print the textentry text as a chat message
+        end
+
+        end
+    end
+    --Arrest Button--
     local Button = vgui.Create("DButton", Frame)
     Button:SetText( "Arrest" )
     Button:SetFontInternal("HudHintTextLarge")  
     Button:SetTextColor( Color(255,255,255) )
     Button:SetSize( 200, 50  )
-    Button:SetPos( 100, 130 )
+    Button:SetPos( 100, 160 )
     Button.Paint = function(self, w, h)
         draw.RoundedBox( 0, 0, 0, w, h, Color( 32, 32, 32, 255 ) )
     end
