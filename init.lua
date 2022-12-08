@@ -56,6 +56,7 @@ net.Receive("ArrestButton_Press",function(len, sender)
     
     local ply = net.ReadEntity()
     local arrestTimes = net.ReadInt(32)
+    if not target then return end
     target:arrest(arrestTimes*60)
     print("SS button works")
 end)
