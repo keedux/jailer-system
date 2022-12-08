@@ -43,7 +43,7 @@ net.Receive("jailerpanel_open", function()
     local Frame = vgui.Create("DFrame")
     Frame:SetSize( 0, 0)
     Frame:Center()
-    Frame:SetTitle( "Arrest Panel" )
+    Frame:SetTitle( "" )
     Frame:SetVisible( true )
     Frame:SetDraggable( false )
     Frame:ShowCloseButton( true )
@@ -60,22 +60,30 @@ net.Receive("jailerpanel_open", function()
     end
 
     Frame.Paint = function(self, w, h)
-        draw.RoundedBox( 0, 0, 0, w, h, Color( 153, 0, 0, 255 ) )
+        draw.RoundedBox( 0, 0, 0, w, h, Color( 123, 0, 0, 255 ) )
+        draw.RoundedBox(0, 0, 0, sizeW, 30, Color( 32, 32, 32, 255 ))
        
     end
     local DermaNumSlider = vgui.Create( "DNumSlider", Frame )
-    DermaNumSlider:SetPos( 50, 20 )				-- Set the position
+    DermaNumSlider:SetPos( 80, 20 )				-- Set the position
     DermaNumSlider:SetSize( 300, 100 )			-- Set the size
-    DermaNumSlider:SetText( "Arrest Time" )	-- Set the text above the slider
+    DermaNumSlider:SetText( "" )	-- Set the text above the slider
     DermaNumSlider:SetMin(0)				 	-- Set the minimum number you can slide to
     DermaNumSlider:SetMax(30)				-- Set the maximum number you can slide to
-    DermaNumSlider:SetDecimals( 0 )				-- Decimal places - zero for whole number
-        
+    DermaNumSlider:SetDecimals( 0 )	
+    			-- Decimal places - zero for whole number
+    local DLabel = vgui.Create("DLabel", Frame)
+    DLabel:SetSize(200,30)
+    DLabel:SetPos(20,55)
+    DLabel:SetText("Arrest Time (Minutes):")  
+    DLabel:SetFontInternal("HudHintTextLarge")  
+
     local Button = vgui.Create("DButton", Frame)
     Button:SetText( "Arrest" )
+    Button:SetFontInternal("HudHintTextLarge")  
     Button:SetTextColor( Color(255,255,255) )
     Button:SetSize( 200, 50  )
-    Button:SetPos( 100, 110 )
+    Button:SetPos( 100, 130 )
     Button.Paint = function(self, w, h)
         draw.RoundedBox( 0, 0, 0, w, h, Color( 32, 32, 32, 255 ) )
     end
