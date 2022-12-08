@@ -29,7 +29,7 @@ end
 
 net.Receive("ArrestButton_Press",function(len, sender)
     
-    if not sender:IsAdmin() then return end
+    if not sender:IsAdmin() then sender:ChatPrint( sender:Nick()..", You're not the correct job to perform this task." ) return end
     
     local jailPanel = nil
     for k, ent in ipairs(ents.FindInSphere(sender:GetPos(), 200)) do
