@@ -36,7 +36,7 @@ net.Receive("ArrestButton_Press",function(len, sender)
         if not IsValid(ent) then continue end
         if ent:GetClass() ~= "jailersystem" then continue end
         jailPanel = ent
-        print("Jailer tings ")
+        
         break
         
     end
@@ -45,11 +45,9 @@ net.Receive("ArrestButton_Press",function(len, sender)
     for k, ply in ipairs(ents.FindInSphere(jailPanel:GetPos(), 400)) do
         if not IsValid(ply) then continue end
         if not ply:IsPlayer() then continue end
-        print("ply tings ")
         local cuffed, cuffs = ply:IsHandcuffed()
         if not (cuffed and IsValid(cuffs)) then continue end
         cuffs:GetKidnapper() -- Returns the player who is dragging the cuffed player, or nil if nobody is dragging 
-        print("player for loop ")
         target = ply
         break
     end
@@ -58,5 +56,5 @@ net.Receive("ArrestButton_Press",function(len, sender)
     local arrestTimes = net.ReadInt(32)
     if not target then return end
     target:arrest(arrestTimes*60)
-    print("SS button works")
+    
 end)
