@@ -59,7 +59,7 @@ net.Receive("jailerpanel_open", function()
         end
     end
     Frame.Paint = function(self, w, h)
-        draw.RoundedBox( 0, 0, 0, w, h, Color( 123, 0, 0, 255 ) )
+        draw.RoundedBox( 0, 0, 0, w, h, Color( 153, 0, 0, 255 ) )
         draw.RoundedBox(0, 0, 0, sizeW, 30, Color( 32, 32, 32, 255 ))
     --NumSlide--   
     end
@@ -77,50 +77,181 @@ net.Receive("jailerpanel_open", function()
     DLabel:SetText("Arrest Time (Minutes):")  
     DLabel:SetFontInternal("HudHintTextLarge")  
     --Reason ComboBox--
-    local DComboBox = vgui.Create( "DComboBox", Frame )
-    DComboBox:SetPos( 0, 100 )
-    DComboBox:SetSize( sizeW, 50 )
-    DComboBox:SetValue( "Arrest Reason" ) 
-    DComboBox:SetFontInternal("HudHintTextLarge")  
-    DComboBox:SetTextColor( Color(255,255,255) )
-    DComboBox:AddChoice( "Equipment Abuse" )
-    DComboBox:AddChoice( "Rape" )
-    DComboBox:AddChoice( "Warcrimes" )
-    DComboBox:AddChoice( "Other", -1 )
-    DComboBox.Paint = function(self, w, h)
-        draw.RoundedBox( 0, 0, 0, w, h, Color( 32, 32, 32, 255 ) )
+    local InfractionType = vgui.Create( "DComboBox", Frame )
+    InfractionType:SetPos( 94, 100 )
+    InfractionType:SetSize( 215, 50 )
+    InfractionType:SetValue( "Arrest Reason" ) 
+    InfractionType:SetFontInternal("HudHintTextLarge") 
+    InfractionType:SetContentAlignment(5)
+    InfractionType:SetTextColor( Color(255,255,255) )
+    InfractionType:AddChoice( "1: Minor Infraction", -1 )
+    InfractionType:AddChoice( "2: Moderate Infraction", -2)
+    InfractionType:AddChoice( "3: Major Infraction", -3)
+    InfractionType.Paint = function(self, w, h)
+        draw.RoundedBox( 5, 0, 0, w, h, Color( 32, 32, 32, 255 ) )
     end
-    function DComboBox:OnSelect(index, value, data)
-
-        if(data == -1) then	
-            DComboBox:Hide()
+    function InfractionType:OnSelect(index, value, data)
+        if(data == -1) then
+            InfractionType:Hide()
+            local MinorInfraction = vgui.Create("DComboBox", Frame)
+            MinorInfraction:SetPos( 94, 100 )
+            MinorInfraction:SetSize( 215, 50 )
+            MinorInfraction:SetValue( "Select Minor Infraction" ) 
+            MinorInfraction:SetFontInternal("HudHintTextLarge") 
+            MinorInfraction:SetContentAlignment(5)
+            MinorInfraction:SetTextColor( Color(255,255,255) )
+            MinorInfraction:AddChoice( "Loitering (5 Minutes)",-1)
+            MinorInfraction:AddChoice( "Theft (5 Minutes)",-2)
+            function MinorInfraction:OnSelect(index, value, data)
+                if (data == -1) then 
+                    DermaNumSlider:SetValue( 5 )
+                end
+                if (data == -2) then 
+                    DermaNumSlider:SetValue( 5 )
+                end
+            end
+            MinorInfraction.Paint = function(self, w, h)
+                draw.RoundedBox( 5, 0, 0, w, h, Color( 32, 32, 32, 255 ) )
+            end
             
-	    local TextEntry = vgui.Create( "DTextEntry", Frame ) -- create the form as a child of frame
-	    TextEntry:SetPos( 0, 100 )
-        TextEntry:SetSize( sizeW, 50 )
-	    TextEntry.OnEnter = function( self )
-		    chat.AddText( self:GetValue() )	-- print the textentry text as a chat message
         end
+        if(data == -2) then
+            InfractionType:Hide()
+            local ModerateInfraction = vgui.Create("DComboBox", Frame)
+            ModerateInfraction:SetPos( 94, 100 )
+            ModerateInfraction:SetSize( 215, 50 )
+            ModerateInfraction:SetValue( "Select Moderate Infraction" ) 
+            ModerateInfraction:SetFontInternal("HudHintTextLarge") 
+            ModerateInfraction:SetContentAlignment(5)
+            ModerateInfraction:SetTextColor( Color(255,255,255) )
+            ModerateInfraction:AddChoice( "Trespassing (5 Minutes)",-1)
+            ModerateInfraction:AddChoice( "Resisting arrest (7 Minutes)",-2)
+            ModerateInfraction:AddChoice( "Assault (5 Minutes)",-3)
+            ModerateInfraction:AddChoice( "Defective Behaviour (10 Minutes)",-4)
+            ModerateInfraction:AddChoice( "Exessive Force (5 Minutes)",-5)
+            ModerateInfraction:AddChoice( "Interfering with CG Activity (5 Minutes)",-6)
+            ModerateInfraction:AddChoice( "Disregard of Company/Citizenry Safety (10 Minutes)",-7)
+            ModerateInfraction:AddChoice( "Abuse of equipment (5 Minutes)",-8)
+            function ModerateInfraction:OnSelect(index, value, data)
+                if (data == -1) then 
+                    DermaNumSlider:SetValue( 5 )
+                end
+                if (data == -2) then 
+                    DermaNumSlider:SetValue( 7 )
+                end
+                if (data == -3) then 
+                    DermaNumSlider:SetValue( 5 )
+                end
+                if (data == -4) then 
+                    DermaNumSlider:SetValue( 10 )
+                end
+                if (data == -5) then 
+                    DermaNumSlider:SetValue( 5 )
+                end
+                if (data == -6) then 
+                    DermaNumSlider:SetValue( 5 )
+                end
+                if (data == -7) then 
+                    DermaNumSlider:SetValue( 10 )
+                end
+                if (data == -8) then 
+                    DermaNumSlider:SetValue( 5 )
+                end
 
+            end
+            ModerateInfraction.Paint = function(self, w, h)
+                draw.RoundedBox( 5, 0, 0, w, h, Color( 32, 32, 32, 255 ) )
+            end
+            
+        end
+        if(data == -3) then
+            InfractionType:Hide()
+            local MajorInfraction = vgui.Create("DComboBox", Frame)
+            MajorInfraction:SetPos( 94, 100 )
+            MajorInfraction:SetSize( 215, 50 )
+            MajorInfraction:SetValue( "Select Major Infraction" ) 
+            MajorInfraction:SetFontInternal("HudHintTextLarge") 
+            MajorInfraction:SetContentAlignment(5)
+            MajorInfraction:SetTextColor( Color(255,255,255) )
+            MajorInfraction:AddChoice( "Affiliation with members of criminal organizations (10 Minutes)",-1)
+            MajorInfraction:AddChoice( "Arson (15 Minutes)",-2)
+            MajorInfraction:AddChoice( "Insubordination (10 Minutes)",-3)
+            MajorInfraction:AddChoice( "Manslaughter (10 Minutes)",-4)
+            MajorInfraction:AddChoice( "Murder (20 Minutes)",-5)
+            MajorInfraction:AddChoice( "Attempted Murder (15 Minutes)",-6)
+            MajorInfraction:AddChoice( "Prison Break (20 Minutes)",-7)
+            MajorInfraction:AddChoice( "Possession Of Drugs (5 Minutes)",-8)
+            MajorInfraction:AddChoice( "Tampering (5 Minutes)",-9)
+            MajorInfraction:AddChoice( "Dissemination of Classified information (20 Minutes)",-10)
+            MajorInfraction:AddChoice( "Treason (15 Minutes)",-11)
+            MajorInfraction:AddChoice( "Rebellion (15 Minutes)",-12)
+            MajorInfraction:AddChoice( "Attempted arson (10 Minutes)",-13)
+            function MajorInfraction:OnSelect(index, value, data)
+                if (data == -1) then 
+                    DermaNumSlider:SetValue( 10 )
+                end
+                if (data == -2) then 
+                    DermaNumSlider:SetValue( 15 )
+                end
+                if (data == -3) then 
+                    DermaNumSlider:SetValue( 10 )
+                end
+                if (data == -4) then 
+                    DermaNumSlider:SetValue( 10 )
+                end
+                if (data == -5) then 
+                    DermaNumSlider:SetValue( 20 )
+                end
+                if (data == -6) then 
+                    DermaNumSlider:SetValue( 15 )
+                end
+                if (data == -7) then 
+                    DermaNumSlider:SetValue( 20 )
+                end
+                if (data == -8) then 
+                    DermaNumSlider:SetValue( 5 )
+                end
+                if (data == -9) then 
+                    DermaNumSlider:SetValue( 5 )
+                end
+                if (data == -10) then 
+                    DermaNumSlider:SetValue( 20 )
+                end
+                if (data == -11) then 
+                    DermaNumSlider:SetValue( 15 )
+                end
+                if (data == -12) then 
+                    DermaNumSlider:SetValue( 15 )
+                end
+                if (data == -13) then 
+                    DermaNumSlider:SetValue( 10 )
+                end
+            end
+            MajorInfraction.Paint = function(self, w, h)
+                draw.RoundedBox( 5, 0, 0, w, h, Color( 32, 32, 32, 255 ) )
+            end
+            
         end
     end
+    
     --Arrest Button--
     local Button = vgui.Create("DButton", Frame)
     Button:SetText( "Arrest" )
     Button:SetFontInternal("HudHintTextLarge")  
     Button:SetTextColor( Color(255,255,255) )
-    Button:SetSize( 200, 50  )
-    Button:SetPos( 100, 160 )
+    Button:SetSize( 215, 50  )
+    Button:SetPos( 94, 157 )
     Button.Paint = function(self, w, h)
-        draw.RoundedBox( 0, 0, 0, w, h, Color( 32, 32, 32, 255 ) )
+        draw.RoundedBox( 5, 0, 0, w, h, Color( 32, 32, 32, 255 ) )
     end
     Button.DoClick = function()
         
         net.Start("ArrestButton_Press")
         net.WriteEntity( ply )
-        net.WriteInt( DermaNumSlider:GetValue(), 32 )    
+        net.WriteInt( DermaNumSlider:GetValue(), 32 )
         net.SendToServer()
-        print("button works")
+       
+        
         
         
     end
