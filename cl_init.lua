@@ -132,6 +132,7 @@ net.Receive("jailerpanel_open", function()
             ModerateInfraction:AddChoice( "Interfering with CG Activity (5 Minutes)",-6)
             ModerateInfraction:AddChoice( "Disregard of Company/Citizenry Safety (10 Minutes)",-7)
             ModerateInfraction:AddChoice( "Abuse of equipment (5 Minutes)",-8)
+            ModerateInfraction:AddChoice( "Rioting (10 Minutes)",-9)
             function ModerateInfraction:OnSelect(index, value, data)
                 if (data == -1) then 
                     DermaNumSlider:SetValue( 5 )
@@ -157,6 +158,9 @@ net.Receive("jailerpanel_open", function()
                 if (data == -8) then 
                     DermaNumSlider:SetValue( 5 )
                 end
+                if (data == -9) then 
+                    DermaNumSlider:SetValue( 10 )
+                end
 
             end
             ModerateInfraction.Paint = function(self, w, h)
@@ -173,7 +177,7 @@ net.Receive("jailerpanel_open", function()
             MajorInfraction:SetFontInternal("HudHintTextLarge") 
             MajorInfraction:SetContentAlignment(5)
             MajorInfraction:SetTextColor( Color(255,255,255) )
-            MajorInfraction:AddChoice( "Affiliation with members of criminal organizations (10 Minutes)",-1)
+            MajorInfraction:AddChoice( "Conspiracy with members of criminal organizations (10 Minutes)",-1)
             MajorInfraction:AddChoice( "Arson (15 Minutes)",-2)
             MajorInfraction:AddChoice( "Insubordination (10 Minutes)",-3)
             MajorInfraction:AddChoice( "Manslaughter (10 Minutes)",-4)
@@ -182,10 +186,11 @@ net.Receive("jailerpanel_open", function()
             MajorInfraction:AddChoice( "Prison Break (20 Minutes)",-7)
             MajorInfraction:AddChoice( "Possession Of Drugs (5 Minutes)",-8)
             MajorInfraction:AddChoice( "Tampering (5 Minutes)",-9)
-            MajorInfraction:AddChoice( "Dissemination of Classified information (20 Minutes)",-10)
+            MajorInfraction:AddChoice( "Espionage (20 Minutes)",-10)
             MajorInfraction:AddChoice( "Treason (15 Minutes)",-11)
             MajorInfraction:AddChoice( "Rebellion (15 Minutes)",-12)
             MajorInfraction:AddChoice( "Attempted arson (10 Minutes)",-13)
+            MajorInfraction:AddChoice( "Warcrime (25 Minutes)",-14)
             function MajorInfraction:OnSelect(index, value, data)
                 if (data == -1) then 
                     DermaNumSlider:SetValue( 10 )
@@ -225,6 +230,9 @@ net.Receive("jailerpanel_open", function()
                 end
                 if (data == -13) then 
                     DermaNumSlider:SetValue( 10 )
+                end
+                if (data == -14) then 
+                    DermaNumSlider:SetValue( 25 )
                 end
             end
             MajorInfraction.Paint = function(self, w, h)
