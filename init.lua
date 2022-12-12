@@ -57,7 +57,7 @@ net.Receive("ArrestButton_Press",function(len, sender)
     arrestTimes = math.Clamp(arrestTimes, 0, 30)
     if not target then return end
     target:arrest(arrestTimes*60)
-    sender:Say("/comms ROA | Name: "..target:Nick().." | Reason: "..ArrestReasons.."| Duration: ".. arrestTimes.. " Minute(s)", false)
+    sender:Say("/comms ROA | Name: "..target:Nick().." | Reason: "..ArrestReasons.." | Duration: ".. arrestTimes.. " Minute(s)", false)
     // print(" Has been arrrested by "..sender:Nick() .." for "..arrestTimes.." Minute(s)" )
     
     
