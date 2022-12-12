@@ -37,4 +37,7 @@ RkhoraJailPanel.MajorInfractions = {
     ["Warcrime"] = 25,
 
 }
+tms = {
+    [TEAM_CGENLISTED] = true,
+}
 
