@@ -1,5 +1,5 @@
 include("shared.lua")
-
+RkhoraJailPanel = RkhoraJailPanel or {}
 -- Draw some 3D text
 local function Draw3DText( pos, ang, scale, text, flipView )
 	if ( flipView ) then
@@ -34,8 +34,6 @@ function ENT:Draw()
     
     
 end
-
-
 
 net.Receive("jailerpanel_open", function()
     local ply = LocalPlayer()
@@ -100,16 +98,16 @@ net.Receive("jailerpanel_open", function()
             MinorInfraction:SetFontInternal("HudHintTextLarge") 
             MinorInfraction:SetContentAlignment(5)
             MinorInfraction:SetTextColor( Color(255,255,255) )
-            MinorInfraction:AddChoice( "Loitering (5 Minutes)",-1)
-            MinorInfraction:AddChoice( "Theft (5 Minutes)",-2)
-            function MinorInfraction:OnSelect(index, value, data)
-                if (data == -1) then 
-                    DermaNumSlider:SetValue( 5 )
-                end
-                if (data == -2) then 
-                    DermaNumSlider:SetValue( 5 )
+            
+            for k, v in pairs(RkhoraJailPanel.MinorInfractions) do
+                MinorInfraction:AddChoice(k, v)
+                function MinorInfraction:OnSelect(index, value, time)
+                    DermaNumSlider:SetValue(time)
+                    ArrestReason = MinorInfraction:GetSelected()
+                    
                 end
             end
+            
             MinorInfraction.Paint = function(self, w, h)
                 draw.RoundedBox( 5, 0, 0, w, h, Color( 32, 32, 32, 255 ) )
             end
@@ -124,44 +122,11 @@ net.Receive("jailerpanel_open", function()
             ModerateInfraction:SetFontInternal("HudHintTextLarge") 
             ModerateInfraction:SetContentAlignment(5)
             ModerateInfraction:SetTextColor( Color(255,255,255) )
-            ModerateInfraction:AddChoice( "Trespassing (5 Minutes)",-1)
-            ModerateInfraction:AddChoice( "Resisting arrest (7 Minutes)",-2)
-            ModerateInfraction:AddChoice( "Assault (5 Minutes)",-3)
-            ModerateInfraction:AddChoice( "Defective Behaviour (10 Minutes)",-4)
-            ModerateInfraction:AddChoice( "Exessive Force (5 Minutes)",-5)
-            ModerateInfraction:AddChoice( "Interfering with CG Activity (5 Minutes)",-6)
-            ModerateInfraction:AddChoice( "Disregard of Company/Citizenry Safety (10 Minutes)",-7)
-            ModerateInfraction:AddChoice( "Abuse of equipment (5 Minutes)",-8)
-            ModerateInfraction:AddChoice( "Rioting (10 Minutes)",-9)
-            function ModerateInfraction:OnSelect(index, value, data)
-                if (data == -1) then 
-                    DermaNumSlider:SetValue( 5 )
+            for k, v in pairs(RkhoraJailPanel.ModerateInfractions) do
+                ModerateInfraction:AddChoice(k, v)
+                function ModerateInfraction:OnSelect(index, value, time)
+                    DermaNumSlider:SetValue(time)
                 end
-                if (data == -2) then 
-                    DermaNumSlider:SetValue( 7 )
-                end
-                if (data == -3) then 
-                    DermaNumSlider:SetValue( 5 )
-                end
-                if (data == -4) then 
-                    DermaNumSlider:SetValue( 10 )
-                end
-                if (data == -5) then 
-                    DermaNumSlider:SetValue( 5 )
-                end
-                if (data == -6) then 
-                    DermaNumSlider:SetValue( 5 )
-                end
-                if (data == -7) then 
-                    DermaNumSlider:SetValue( 10 )
-                end
-                if (data == -8) then 
-                    DermaNumSlider:SetValue( 5 )
-                end
-                if (data == -9) then 
-                    DermaNumSlider:SetValue( 10 )
-                end
-
             end
             ModerateInfraction.Paint = function(self, w, h)
                 draw.RoundedBox( 5, 0, 0, w, h, Color( 32, 32, 32, 255 ) )
@@ -177,62 +142,10 @@ net.Receive("jailerpanel_open", function()
             MajorInfraction:SetFontInternal("HudHintTextLarge") 
             MajorInfraction:SetContentAlignment(5)
             MajorInfraction:SetTextColor( Color(255,255,255) )
-            MajorInfraction:AddChoice( "Conspiracy with members of criminal organizations (10 Minutes)",-1)
-            MajorInfraction:AddChoice( "Arson (15 Minutes)",-2)
-            MajorInfraction:AddChoice( "Insubordination (10 Minutes)",-3)
-            MajorInfraction:AddChoice( "Manslaughter (10 Minutes)",-4)
-            MajorInfraction:AddChoice( "Murder (20 Minutes)",-5)
-            MajorInfraction:AddChoice( "Attempted Murder (15 Minutes)",-6)
-            MajorInfraction:AddChoice( "Prison Break (20 Minutes)",-7)
-            MajorInfraction:AddChoice( "Possession Of Drugs (5 Minutes)",-8)
-            MajorInfraction:AddChoice( "Tampering (5 Minutes)",-9)
-            MajorInfraction:AddChoice( "Espionage (20 Minutes)",-10)
-            MajorInfraction:AddChoice( "Treason (15 Minutes)",-11)
-            MajorInfraction:AddChoice( "Rebellion (15 Minutes)",-12)
-            MajorInfraction:AddChoice( "Attempted arson (10 Minutes)",-13)
-            MajorInfraction:AddChoice( "Warcrime (25 Minutes)",-14)
-            function MajorInfraction:OnSelect(index, value, data)
-                if (data == -1) then 
-                    DermaNumSlider:SetValue( 10 )
-                end
-                if (data == -2) then 
-                    DermaNumSlider:SetValue( 15 )
-                end
-                if (data == -3) then 
-                    DermaNumSlider:SetValue( 10 )
-                end
-                if (data == -4) then 
-                    DermaNumSlider:SetValue( 10 )
-                end
-                if (data == -5) then 
-                    DermaNumSlider:SetValue( 20 )
-                end
-                if (data == -6) then 
-                    DermaNumSlider:SetValue( 15 )
-                end
-                if (data == -7) then 
-                    DermaNumSlider:SetValue( 20 )
-                end
-                if (data == -8) then 
-                    DermaNumSlider:SetValue( 5 )
-                end
-                if (data == -9) then 
-                    DermaNumSlider:SetValue( 5 )
-                end
-                if (data == -10) then 
-                    DermaNumSlider:SetValue( 20 )
-                end
-                if (data == -11) then 
-                    DermaNumSlider:SetValue( 15 )
-                end
-                if (data == -12) then 
-                    DermaNumSlider:SetValue( 15 )
-                end
-                if (data == -13) then 
-                    DermaNumSlider:SetValue( 10 )
-                end
-                if (data == -14) then 
-                    DermaNumSlider:SetValue( 25 )
+            for k, v in pairs(RkhoraJailPanel.MajorInfractions) do
+                MajorInfraction:AddChoice(k, v)
+                function MajorInfraction:OnSelect(index, value, time)
+                    DermaNumSlider:SetValue(time)
                 end
             end
             MajorInfraction.Paint = function(self, w, h)
@@ -255,12 +168,8 @@ net.Receive("jailerpanel_open", function()
     Button.DoClick = function()
         
         net.Start("ArrestButton_Press")
-        net.WriteEntity( ply )
         net.WriteInt( DermaNumSlider:GetValue(), 32 )
+        net.WriteString(ArrestReason)
         net.SendToServer()
-       
-        
-        
-        
     end
 end)
