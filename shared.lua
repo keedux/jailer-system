@@ -10,7 +10,7 @@ RkhoraJailPanel.MinorInfractions = {
     ["Theft"] = 10,
 }
 RkhoraJailPanel.ModerateInfractions = {
-    ["Trespassing"] = 55,
+    ["Trespassing"] = 5,
     ["Resisting Arrest"] = 7,
     ["Assault"] = 5,
     ["Defective Behaviour"] = 10,
