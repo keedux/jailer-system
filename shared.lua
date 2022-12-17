@@ -5,6 +5,8 @@ ENT.Category = "[SWRP] Jailer System"
 
 ENT.Spawnable = true 
 RkhoraJailPanel = RkhoraJailPanel or {}
+RkhoraJailTeams = RkhoraJailTeams or {}
+
 RkhoraJailPanel.MinorInfractions = {
     ["Loitering"] = 5,
     ["Theft"] = 10,
@@ -37,7 +39,18 @@ RkhoraJailPanel.MajorInfractions = {
     ["Warcrime"] = 25,
 
 }
-tms = {
-    [TEAM_CGENLISTED] = true,
+RkhoraJailTeams.tms = {
+    // [TEAM_CGENLISTED] = true,
+    // [TEAM_CGSGT] = true,
+    // [TEAM_CGLT] = true,
+    [TEAM_CGCO] = true,
+    // [TEAM_ACJO] = true,
+    // [TEAM_ACO] = true,
+    // [TEAM_ACHC] = true,
+    // [TEAM_ACFM] = true,
+    // [TEAM_DSSCORCH] = true,
+    // [TEAM_DSSEV] = true,
+    // [TEAM_DSFIXER] = true,
+    // [TEAM_DSBOSS] = true,
 }
 

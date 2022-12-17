@@ -3,8 +3,7 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 util.AddNetworkString("jailerpanel_open")
 util.AddNetworkString("ArrestButton_Press")
-
-
+RkhoraJailTeams = RkhoraJailTeams or {}
 
 function ENT:Initialize()
     
@@ -29,8 +28,8 @@ end
 
 net.Receive("ArrestButton_Press",function(len, sender)
     
-    if not tms[sender:Team()] then sender:ChatPrint( sender:Nick()..", You're not the correct job to perform this task." ) return end
-    
+    if not RkhoraJailTeams.tms[sender:Team()] then sender:ChatPrint( sender:Nick()..", You're not the correct job to perform this task." ) return end
+
     local jailPanel = nil
     for k, ent in ipairs(ents.FindInSphere(sender:GetPos(), 200)) do
         if not IsValid(ent) then continue end
@@ -56,8 +55,10 @@ net.Receive("ArrestButton_Press",function(len, sender)
     local ArrestReasons = net.ReadString(ArrestReason)
     arrestTimes = math.Clamp(arrestTimes, 0, 30)
     if not target then return end
+    if not (ArrestReasons == "EMPTY" or arrestTimes == 0) then 
     target:arrest(arrestTimes*60)
     sender:Say("/comms ROA | Name: "..target:Nick().." | Reason: "..ArrestReasons.." | Duration: ".. arrestTimes.. " Minute(s)", false)
+    end
     // print(" Has been arrrested by "..sender:Nick() .." for "..arrestTimes.." Minute(s)" )
     
     

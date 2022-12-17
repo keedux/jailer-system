@@ -85,6 +85,7 @@ net.Receive("jailerpanel_open", function()
     InfractionType:AddChoice( "1: Minor Infraction", -1 )
     InfractionType:AddChoice( "2: Moderate Infraction", -2)
     InfractionType:AddChoice( "3: Major Infraction", -3)
+    ArrestReason = "EMPTY"
     InfractionType.Paint = function(self, w, h)
         draw.RoundedBox( 5, 0, 0, w, h, Color( 32, 32, 32, 255 ) )
     end
@@ -126,6 +127,7 @@ net.Receive("jailerpanel_open", function()
                 ModerateInfraction:AddChoice(k, v)
                 function ModerateInfraction:OnSelect(index, value, time)
                     DermaNumSlider:SetValue(time)
+                    ArrestReason = ModerateInfraction:GetSelected()
                 end
             end
             ModerateInfraction.Paint = function(self, w, h)
@@ -146,6 +148,7 @@ net.Receive("jailerpanel_open", function()
                 MajorInfraction:AddChoice(k, v)
                 function MajorInfraction:OnSelect(index, value, time)
                     DermaNumSlider:SetValue(time)
+                    ArrestReason = MajorInfraction:GetSelected()
                 end
             end
             MajorInfraction.Paint = function(self, w, h)
